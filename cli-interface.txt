@@ -1,0 +1,33 @@
+NAME
+	sdb - simple data base
+
+SYNOPSIS
+	sdb -l [PATH TO DB] [OPTIONS]
+
+
+DESCRIPTION
+	-h
+	  prints this help
+
+	-l PATH
+	    load the databse specified by PATH
+
+	-a
+	   adds an entry to the database, the entry needs to be
+	   entered manually.
+
+	-s [FIELD]
+	   search for a specific entry in the databse with the same
+	   FIELD. For example, -s title -> searches an entry with the
+	   same title. Currently supported fields are: title, url,
+	   tags, tagsor (searches an entry with at least one common
+	   tag), description.
+
+	-e [FORMAT]
+	   exports to format, default is tsv
+
+	-p
+	   plots the number of tags used
+
+	-g FIELD
+	  prints all the fields for each entry in the database
