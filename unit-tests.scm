@@ -77,6 +77,51 @@
   (test-assert "Entries should be equal"
     (same-entries? test-entry test-entry))
 
+  ;; Tags specific comparisons
+  (test-assert "Returns true when tag belong to the list of tags"
+    (tag-inside? 'tag2 '(tag1 tag2 tag3)))
+
+  (test-assert "Should return true because there is at least one common tag"
+    (tags-or-comparison? (get-tags test-entry) '(c)))
+
+  (test-assert "Should return true because there is at least one common tag"
+    (common-tag? test-entry (mk-entry "" "" '(b e f) "")))
+
+
+  )
+
+(test-group "Database construction functions"
+  ;; Data base constructor
+  (define test-entry-1 (mk-entry "Test Entry Title"
+				 "https://url.com"
+				 '(tag1 tag2 tag3)
+				 "First entry description"))
+
+  (define test-entry-2 (mk-entry "Second Entry Title"
+				 "https://second-entry.com"
+				 '(tag1 tag3 tag4)
+				 "Second test entry description"))
+
+  (define test-entry-3 (mk-entry "Third Entry Title"
+				 "https://third-entry.com"
+				 '(tag1 tag4 tag5)
+				 "Third test entry description"))
+
+  (define test-entry-0 (mk-entry "Zero Entry Title"
+				 "https://zero-entry.com"
+				 '(tag0 tag5)
+				 "Zero test entry description"))
+
+  (define db (mk-db test-entry-1 test-entry-2 test-entry-3))
+
+  (test-assert "The entries should be equal"
+    (same-entries? test-entry-1 (next-entry db)))
+
+  (test-assert "The entries shoudld be equal"
+    (same-entries? test-entry-0 (next-entry (add-entry test-entry-0 db))))
+
+  (get-db-titles db) 
+
   )
 
 
