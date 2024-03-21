@@ -14,6 +14,7 @@
 (cond
  ((null? (command-line-arguments))
   (display "No arguments where given\n")
+  (display "For help run: sdb -h\n")
   (display "Usage: sdb -l [PATH TO DB] [OPTIONS]\n")
   (exit))
  (else
