@@ -69,7 +69,3 @@
 
    (else
     (display "Error: unknown field, allowed fields are: title, url, tags, description\n"))))
-
-;; TODO
-;; ====
-;; - Clean the code-examples
