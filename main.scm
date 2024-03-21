@@ -9,7 +9,7 @@
 (load-relative "./db-utils.scm")
 (load-relative "./cli.scm")
 (load-relative "./plot.scm")
-(load-relative "./db-example.scm") ;example database where *db* is defined
+;(load-relative "./db-example.scm") ;example database where *db* is defined
 
 (cond
  ((null? (command-line-arguments))
@@ -19,6 +19,11 @@
  (else
   (params-handler
    (command-line-arguments-alist (command-line-arguments)))))
+
+(when (not l-param?)
+  (display "Please specify a PATH to a database\n")
+  (display "Usage: sdb -l [PATH TO DB] [OPTIONS]\n")
+  (exit))
 
 (when a-param?
   (if (null? a-args)
@@ -62,16 +67,16 @@
     (exit))
 
    ((string=? g-args "title")
-    (display (get-entries-titles *db*)))
+    (display (get-db-titles *db*)))
 
    ((string=? g-args "url")
-    (display (get-entries-urls *db*)))
+    (display (get-db-urls *db*)))
 
    ((string=? g-args "tags")
-    (display (get-entries-tags *db*)))
+    (display (get-db-tags *db*)))
 
    ((string=? g-args "description")
-    (display (get-entries-descriptions *db*)))
+    (display (get-db-descriptions *db*)))
 
    (else
     (display "Error: unknown field, allowed fields are: title, url, tags, description\n"))))
