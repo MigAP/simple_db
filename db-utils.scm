@@ -3,7 +3,7 @@
 (import utf8)
 (import (list-utils basic))
 
-;; Entries constructors
+;; Entry constructor
 (define (mk-entry title url tags description)
   (list (cons 'title title)
 	(cons 'url url)
@@ -57,7 +57,7 @@
    (same-tags? e1 e2)
    (same-description? e1 e2)))
 
-; returns true if tag is inside ltags
+;; returns true if tag is inside ltags
 (define (tag-inside? tag ltags)
   (cond
    ((null? ltags) #f )
@@ -65,7 +65,6 @@
    (else
     (or (tag-inside? tag (cdr ltags))))))
 
-;(tag-inside? 'c '(a b d e))
 
 ;; returns true if there is a common tag between the lists of tags
 (define (tags-or-comparison? ltags1 ltags2)
@@ -199,15 +198,15 @@
 (define lookup-and-collect-by-tags (lookup-and-collect-f same-tags?))
 (define lookup-and-collect-by-tags-or (lookup-and-collect-f common-tag?))
 
-; returns all the entries that have at least one matching tag with
-; entry
+;; returns all the entries that have at least one matching tag with
+;; entry
 (define (lookup-entries-with-common-tags db entry)
   (lookup-and-collect-by-tags-or db entry (lambda (x) x)))
 
 
-;; Tags statistics from the database
+;;; Tags statistics from the database
 
-;;; test if atom a is part of the list of atoms lat (Little schemer chap 2)
+;; test if atom a is part of the list of atoms lat (Little schemer chap 2)
 (define (member? a lat)
   (cond
    ((null? lat) #f)
@@ -215,7 +214,7 @@
 	      (member? a (cdr lat))))))
 
 
-;;; make a set from a list of atoms (Little Schemer chap7)
+;; make a set from a list of atoms (Little Schemer chap7)
 (define (make-set lat)
   (cond
    ((null? lat) '())
@@ -224,14 +223,14 @@
    (else (add-entry (car lat)
 		    (make-set (cdr lat))))))
 
-;; returns true if s1 is a subset of s2 
+;; returns true if s1 is a subset of s2
 (define (subset? s1 s2)
   (cond
    ((null? s1) #t)
    ((member? (car s1) s2)
     (and (subset? (cdr s1) s2)))
    (else #f)))
-	
+
 ;; returns true if s1 and s2 are the same set
 (define (same-set? s1 s2)
   (and (subset? s1 s2)
@@ -241,8 +240,8 @@
   (make-set
    (flatten (get-db-tags db))))
 
-;;; returns the number of times an atom "a" appears in a list of atoms
-;;; "lat"
+;; returns the number of times an atom "a" appears in a list of atoms
+;; "lat"
 (define (occurrences a lat)
   (cond
    ((null? lat) 0)
@@ -250,10 +249,9 @@
     (add1 (occurrences a (cdr lat))))
    (else (occurrences a (cdr lat)))))
 
-;(occurrences 'a '(a b f a d a))
 
-;;; returns an alist whose keys are the lat-to-search and the values
-;;; correspond to the number of times each atom appeart on lat
+;; returns an alist whose keys are the lat-to-search and the values
+;; correspond to the number of times each atom appeart on lat
 (define (occurrences-alist lat-to-search lat)
   (cond
    ((null? lat-to-search) '())
@@ -271,9 +269,9 @@
 		     (flatten (get-db-tags db))))
 
 
-;; IO database functions
+;;; IO database functions
 
-;;; write database to a file
+;; write database to a file
 (define (write-database db path)
   (call-with-output-file path
     (lambda (path)
