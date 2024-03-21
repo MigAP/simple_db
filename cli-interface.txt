@@ -20,7 +20,7 @@ DESCRIPTION
 	   search for a specific entry in the databse with the same
 	   FIELD. For example, -s title -> searches an entry with the
 	   same title. Currently supported fields are: title, url,
-	   tags, tagsor (searches an entry with at least one common
+	   tags, tags-or (searches an entry with at least one common
 	   tag), description.
 
 	-e [FORMAT]
