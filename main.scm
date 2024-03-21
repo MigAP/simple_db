@@ -29,16 +29,19 @@
 (when s-param?
   (let ((search-results (prompt-search s-args)))
     (newline)
-    (display "Search results\n")
-    (display "=================\n")
-    (newline)
-    (cond
-     ((string=? s-args "tags-or")
-      (display "Entries found:\n")
-      (print-db search-results))
-     (else
-      (display "Entry found:\n")
-      (print-entry search-results)))))
+    (if (null? search-results)
+	(display "No results found.")
+	(begin
+	  (display "Search results\n")
+	  (display "=================\n")
+	  (newline)
+	  (cond
+	   ((string=? s-args "tags-or")
+	    (display "Entries found:\n")
+	    (print-db search-results))
+	   (else
+	    (display "Entry found:\n")
+	    (print-entry search-results)))))))
 
 (when p-param?
   (plot-tags-stats (get-tags-stats *db*)))

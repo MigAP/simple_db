@@ -203,7 +203,7 @@
       (display "Enter tags separated by a space: ")
       (set-tags! search-entry
 		 (map string->symbol (string-split (read-line))))
-      (lookup-by-tags *db* search-entry))
+      (lookup-entry-by-tags *db* search-entry))
 
      ((string=? search-field "tags-or")
       (display "Enter tags separated by a space: ")
@@ -214,7 +214,7 @@
      ((string=? search-field "description")
       (display "Enter description: ")
       (set-description! search-entry (read-line))
-      (lookup-entry-by-tags-description search-entry))
+      (lookup-entry-by-description search-entry))
 
      (else
       (display "Error: unknown search field, allowed search fields are: title, url, tags, tags-or, description\n")))))
