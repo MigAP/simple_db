@@ -13,8 +13,7 @@ DESCRIPTION
 	    load the databse specified by PATH
 
 	-a
-	   adds an entry to the database, the entry needs to be
-	   entered manually.
+	   Asks the user to prompt a new entry and then prints the new database.
 
 	-s [FIELD]
 	   search for a specific entry in the databse with the same
