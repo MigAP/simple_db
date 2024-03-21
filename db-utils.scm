@@ -224,9 +224,9 @@
    (else (add-entry (car lat)
 		    (make-set (cdr lat))))))
 
-(define (get-tag-set entries)
+(define (get-tag-set db)
   (make-set
-   (flatten (get-db-tags entries))))
+   (flatten (get-db-tags db))))
 
 ;;; returns the number of times an atom "a" appears in a list of atoms
 ;;; "lat"
