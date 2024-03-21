@@ -72,5 +72,4 @@
 
 ;; TODO
 ;; ====
-;; - unit testing with http://wiki.call-cc.org/eggref/5/test
-;; - Create an egg? http://wiki.call-cc.org/eggs%20tutorial
+;; - Clean the code-examples
