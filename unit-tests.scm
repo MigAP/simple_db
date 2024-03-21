@@ -254,4 +254,4 @@
 
 ;; IMPORTANT! The following ensures nightly automated tests can
 ;; distinguish failure from success.  Always end tests/run.scm with this.
-					;(test-exit)
+(test-exit)
