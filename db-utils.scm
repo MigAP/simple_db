@@ -224,6 +224,19 @@
    (else (add-entry (car lat)
 		    (make-set (cdr lat))))))
 
+;; returns true if s1 is a subset of s2 
+(define (subset? s1 s2)
+  (cond
+   ((null? s1) #t)
+   ((member? (car s1) s2)
+    (and (subset? (cdr s1) s2)))
+   (else #f)))
+	
+;; returns true if s1 and s2 are the same set
+(define (same-set? s1 s2)
+  (and (subset? s1 s2)
+       (subset? s2 s1)))
+
 (define (get-tag-set db)
   (make-set
    (flatten (get-db-tags db))))
