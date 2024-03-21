@@ -1,7 +1,10 @@
-(import (chicken string))
-(import (chicken load))
 (import utf8)
-
+(import (chicken string)
+	(chicken load)
+	(chicken port)
+	(chicken process-context)
+	(chicken io)
+	(chicken load))
 
 (load-relative "./db-utils.scm")
 (load-relative "./cli.scm")

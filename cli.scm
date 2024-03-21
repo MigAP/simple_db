@@ -4,7 +4,6 @@
 	(chicken load))
 
 (load-relative "./db-utils.scm")
-(load-relative "./plot.scm")
 
 (define *l-param* "-l")
 (define *a-param* "-a")
