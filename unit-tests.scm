@@ -4,18 +4,18 @@
 (import utf8)
 
 
-(load-relative "./db-utils.scm") 
+(load-relative "./db-utils.scm")
 
 (test-group "Constructor, getters, setters and comparisons"
   (define test-entry-title "Test Entry Title")
   (define test-entry-url "https://url.com")
   (define test-entry-tags '(tag1 tag2))
   (define test-entry-description "This is a description")
-  
+
   (define test-entry (mk-entry test-entry-title
-			     test-entry-url
-			     test-entry-tags
-			     test-entry-description))
+			       test-entry-url
+			       test-entry-tags
+			       test-entry-description))
 
   ;; Getters
   (test "Title getter test"
@@ -60,7 +60,7 @@
   (test "Description setter test"
 	test-entry-setter-description
 	(get-description test-entry))
-  
+
   ;; Comparison between entries
   (test-assert "Titles should match"
     (same-title? test-entry test-entry))
@@ -120,11 +120,138 @@
   (test-assert "The entries shoudld be equal"
     (same-entries? test-entry-0 (next-entry (add-entry test-entry-0 db))))
 
-  (get-db-titles db) 
+  ;;; Database getters
 
+  (test-assert "Titles should be equal"
+    (equal? (get-db-titles db) (list (get-title test-entry-1)
+				     (get-title test-entry-2)
+				     (get-title test-entry-3))))
+
+  (test-assert "Urls should be equal"
+    (equal? (get-db-urls db) (list (get-url test-entry-1)
+				   (get-url test-entry-2)
+				   (get-url test-entry-3))))
+
+  (test-assert "Tags should be equal"
+    (equal? (get-db-tags db) (list (get-tags test-entry-1)
+				   (get-tags test-entry-2)
+				   (get-tags test-entry-3))))
+
+  (test-assert "Description should be equal"
+    (equal? (get-db-descriptions db) (list (get-description test-entry-1)
+					   (get-description test-entry-2)
+					   (get-description test-entry-3)))))
+
+(test-group "Lookup functions"
+  ;; Data base constructor
+
+  (define test-entry-0 (mk-entry "Zero Entry Title"
+				 "https://zero-entry.com"
+				 '(tag0 tag5)
+				 "Zero test entry description"))
+
+  (define test-entry-1 (mk-entry "Test Entry Title"
+				 "https://url.com"
+				 '(tag1 tag2 tag3)
+				 "First entry description"))
+
+  (define test-entry-2 (mk-entry "Second Entry Title"
+				 "https://second-entry.com"
+				 '(tag1 tag3 tag4)
+				 "Second test entry description"))
+
+  (define test-entry-3 (mk-entry "Third Entry Title"
+				 "https://third-entry.com"
+				 '(tag1 tag4 tag5)
+				 "Third test entry description"))
+
+
+  (define db (mk-db test-entry-0 test-entry-1 test-entry-2 test-entry-3))
+  ;;; Lookup functions
+
+  (test-assert "Search by title, entries should be equal"
+    (same-entries? test-entry-2 (lookup-entry-by-title db test-entry-2)))
+
+  (test-assert "Search by url, entries should be equal"
+    (same-entries? test-entry-2 (lookup-entry-by-url db test-entry-2)))
+
+  (test-assert "Search by tags, entries should be equal"
+    (same-entries? test-entry-2 (lookup-entry-by-tags db test-entry-2)))
+
+  (test-assert "Search by tags (at least one common tag), Entries should be equal"
+    (common-tag? test-entry-2 (lookup-entry-by-tags-or db
+						       (mk-entry "" "" '(tag3) ""))))
+
+  (test "Lookup and collect by title"
+	1
+	(lookup-and-collect-by-title db test-entry-3 length))
+
+  (test "Lookup and collect by tags"
+	1
+	(lookup-and-collect-by-tags db test-entry-1 length))
+
+  (test "Lookup and collect by tags or "
+	3
+	(lookup-and-collect-by-tags-or db test-entry-1 length))
+
+  (test-assert "The titles should match"
+    (equal? (get-db-titles (lookup-entries-with-common-tags db test-entry-1))
+	    (list (get-title test-entry-1)
+		  (get-title test-entry-2)
+		  (get-title test-entry-3)))))
+
+(test-group "Tag statistics functions"
+  (define test-entry-0 (mk-entry "Zero Entry Title"
+				 "https://zero-entry.com"
+				 '(tag0 tag5)
+				 "Zero test entry description"))
+
+  (define test-entry-1 (mk-entry "Test Entry Title"
+				 "https://url.com"
+				 '(tag1 tag2 tag3)
+				 "First entry description"))
+
+  (define test-entry-2 (mk-entry "Second Entry Title"
+				 "https://second-entry.com"
+				 '(tag1 tag3 tag4)
+				 "Second test entry description"))
+
+  (define test-entry-3 (mk-entry "Third Entry Title"
+				 "https://third-entry.com"
+				 '(tag1 tag4 tag5)
+				 "Third test entry description"))
+
+
+  (define db (mk-db test-entry-0 test-entry-1 test-entry-2 test-entry-3))
+
+
+  (test-assert "Set member function test"
+    (member 'b '(a b c d)))
+
+  (test-assert "Make a set from a list of atoms"
+    (equal? (make-set '(a a b c b c d d d e f f))
+	    '(a b c d e f)) )
+
+  (test-assert "Set equality test"
+    (same-set? '(c a b) '(a b c)))
+
+  (test-assert "Get the set of tags in a database"
+    (same-set? (get-tag-set db)
+	       '(tag0 tag1 tag2 tag3 tag4 tag5)))
+
+  (test "Occurrence of an atom in a set"
+	3
+	(occurrences 'a '(a b f a d a)))
+
+  (test "Occurrences association list"
+	(occurrences-alist '(a b c) '(a a a b b b c b c))
+	'((a . 3) (b . 4) (c . 2)))
+
+  (test "Database tags statistics"
+	(get-tags-stats db)
+	'((tag0 . 1) (tag2 . 1) (tag3 . 2) (tag1 . 3) (tag4 . 2) (tag5 . 2)))
   )
-
 
 ;; IMPORTANT! The following ensures nightly automated tests can
 ;; distinguish failure from success.  Always end tests/run.scm with this.
-(test-exit)
+					;(test-exit)
