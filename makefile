@@ -3,7 +3,7 @@ all: sdb
 sdb: main.scm db-utils.scm cli.scm plot.scm db-example.scm 
 	csc -o sdb main.scm 
 
-test: 
+tests: 
 	csi -s unit-tests.scm
 
 clear:
