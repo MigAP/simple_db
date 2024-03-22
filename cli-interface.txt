@@ -12,9 +12,6 @@ DESCRIPTION
 	-l PATH
 	    load the databse specified by PATH
 
-	-a
-	   Asks the user to prompt a new entry and then prints the new database.
-
 	-s [FIELD]
 	   search for a specific entry in the databse with the same
 	   FIELD. For example, -s title -> searches an entry with the
@@ -30,3 +27,6 @@ DESCRIPTION
 
 	-g FIELD
 	  prints all the fields for each entry in the database
+
+	-a
+	   Asks the user to prompt a new entry and then prints the new database.
