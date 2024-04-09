@@ -4,7 +4,7 @@
 (import utf8)
 
 
-(load-relative "./db-utils.scm")
+(load-relative "../db-utils.scm")
 
 (test-group "Constructor, getters, setters and comparisons"
   (define test-entry-title "Test Entry Title")
