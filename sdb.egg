@@ -2,4 +2,5 @@
  (version "1.0")
  (synopsis "Simple database to store urls")
  (dependencies list-utils gnuplot-pipe)
- (components (program sdb (source main.scm))))
+ (components (program sdb (source main.scm)
+		      (source-dependencies cli.scm db-utils.scm plot.scm))))
