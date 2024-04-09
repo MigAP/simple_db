@@ -21,20 +21,47 @@
 (define e-param? #f)
 (define g-param? #f)
 
-(define *help-file* "./cli-interface.txt")
 (define a-args '())
 (define s-args '())
 (define e-args '())
 (define g-args '())
 
+(define *help-string*
+  "NAME
+	sdb - simple data base
+
+SYNOPSIS
+	sdb -l [PATH TO DB] [OPTIONS]
+
+
+DESCRIPTION
+	-h
+	  prints this help
+
+	-l PATH
+	    load the databse specified by PATH
+
+	-s [FIELD]
+	   search for a specific entry in the databse with the same
+	   FIELD. For example, -s title -> searches an entry with the
+	   same title. Currently supported fields are: title, url,
+	   tags, tags-or (searches an entry with at least one common
+	   tag), description.
+
+	-e [FORMAT]
+	   exports to format, default is tsv
+
+	-p
+	   plots the number of tags used
+
+	-g FIELD
+	  prints all the fields for each entry in the database
+
+	-a
+	   Asks the user to prompt a new entry and then prints the new database.")
+
 (define (print-help)
-  (call-with-input-file *help-file*
-    (lambda (i-port)
-      (let loop ((line (read-line i-port)))
-	(if (eof-object? line) '()
-	    (begin
-	      (write-line line)
-	      (loop (read-line i-port))))))))
+  (display *help-string*))
 
 (define (h-param-f arg)
   (set! h-param? #t)
