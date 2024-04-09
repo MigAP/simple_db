@@ -6,10 +6,10 @@
 	(chicken io)
 	(chicken load))
 
-(load-relative "./db-utils.scm")
-(load-relative "./cli.scm")
-(load-relative "./plot.scm")
-;(load-relative "./db-example.scm") ;example database where *db* is defined
+(include-relative "./db-utils.scm")
+(include-relative "./cli.scm")
+(include-relative "./plot.scm")
+;(include-relative "./db-example.scm") ;example database where *db* is defined
 
 (cond
  ((null? (command-line-arguments))

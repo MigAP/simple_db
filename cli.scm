@@ -3,7 +3,7 @@
 	(chicken io)
 	(chicken load))
 
-(load-relative "./db-utils.scm")
+(include-relative "./db-utils.scm")
 
 (define *l-param* "-l")
 (define *a-param* "-a")

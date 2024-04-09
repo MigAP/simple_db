@@ -2,10 +2,10 @@
 (import (chicken load))
 (import utf8)
 
-(load-relative "./db-utils.scm")
-(load-relative "./cli.scm")
-(load-relative "./plot.scm")
-(load-relative "./db-example.scm") ; where *db* is defined
+(include-relative "./db-utils.scm")
+(include-relative "./cli.scm")
+(include-relative "./plot.scm")
+(include-relative "./db-example.scm") ; where *db* is defined
 
 
 ;;; Creating entries
