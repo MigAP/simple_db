@@ -14,14 +14,28 @@ An example database is given in the repository with the file
 available in [code-examples](./code-examples.scm).
 
 ## Compilation
+[Chicken Scheme](http://call-cc.org/) is required to compile the
+program.
 
-[Chicken Scheme](http://call-cc.org/) is required to run the
-program. To compile the program simply run:
+### Compilation with `chicken-install`
+This is the preferred way because it will install automatically all
+the required dependencies. To compile the program without
+installing-it run:
+
+```
+chicken-install -n 
+```
+
+
+### Compilation with a `makefile`
+First install the eggs `list-utils` and `gnuplot-pipe`, then to
+compile the program using a makefile simply run:
 
 ```
 make
 ```
 
+## Using the interpreter
 It is also possible to run the program using the `csi` interpreter:
 
 ```
@@ -31,10 +45,19 @@ csi -s main.scm -h
 The above command prints the help of the program.
 
 ## Tests
+
+### Using `chicken-install`
+To run the unit tests: 
+
+```
+chicken-install -n -test
+```
+
+### Using `make`
 To run the tests simply run the following command:
 
 ```
-make tests
+make test
 ```
 ## Examples
 

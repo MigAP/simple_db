@@ -1,0 +1,5 @@
+((author "Miguel Arpa Perozo")
+ (version "1.0")
+ (synopsis "Simple database to store urls")
+ (dependencies list-utils gnuplot-pipe)
+ (components (program sdb (source main.scm))))
